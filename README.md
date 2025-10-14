@@ -77,7 +77,7 @@ The ``BreakPoint`` class encapsulates the state and behavior of a single breakpo
 
 #### ``main``
 
-The main function serves as a practical demonstration, orchestrating the ``Loader`` class to patch the ``Example.exe`` binaries provided in the *Demo* folder. These executables are packed with *UPX* (version 5.0.1). The virtual addresses used in the code correspond directly to these specific binaries (x64 and x86). *Debug* configuration was used to build these binaries.
+The main function serves as a practical demonstration, orchestrating the ``Loader`` class to patch the ``Example.exe`` binaries provided in the *Demo* folder. The example executables are packed with *UPX* (version 5.0.1), to have a more realistic scenario. The virtual addresses used in the code correspond directly to these specific binaries (x64 and x86). *Debug* configuration was used to build these binaries.
 
 - **Bypass the UPX Packer**: Before any modifications can be made, the loader must allow the *UPX* unpacking stub to finish its work. This is accomplished by resuming the process and setting a breakpoint when jumping to the Original Entry Point (OEP) of the application. The ``loader.ResumeUntilRva()`` method is used to halt execution precisely at the moment the unpacked code is about to run.
 - **Apply In-Memory Patches**: With the application now fully unpacked in memory, the following modifications are applied:
