@@ -37,7 +37,7 @@ Breakpoints can be placed within the target's main executable or its loaded modu
 
 The ``WriteProcessMemory`` API is used to apply patches to the target's memory at a specific Virtual Address (VA) or Relative Virtual Address (RVA). Similarly, the thread's registers are accessed and modified using ``GetThreadContext`` and ``SetThreadContext``, respectively.  
 
-## Remote Memory Allocation
+### Remote Memory Allocation
 
 Memory allocation in the target process is performed using ``VirtualAllocEx``.
 
