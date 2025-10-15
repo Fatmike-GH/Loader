@@ -66,7 +66,7 @@ The core of the solution is the ``Loader`` class, which encapsulates all functio
 - ``AllocateMemory`` Allocates a new region of memory within the virtual address space of the target process.
 - ``WriteToVa`` Writes a supplied data buffer to a specific Virtual Address (VA) in the target's memory.
 - ``WriteToRva`` Writes data to a Relative Virtual Address (RVA) within the main module of the target.
-- ``UpdateContext`` Applies a modified context structure to the main thread, allowing for direct manipulation of CPU registers.
+- ``UpdateContext`` Applies a modified context structure to the main thread, allowing direct manipulation of CPU registers.
 
 #### ``class ModuleResolver``
 
