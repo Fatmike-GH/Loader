@@ -47,6 +47,10 @@ Memory allocation in the target process is performed using ``VirtualAllocEx``.
 
 ## Solution Overview
 
+### Example Project
+
+The Example project is a simple console application designed to serve as the demonstration target for the Loader. It contains two specific features that are modified at runtime: a basic key validation check, which is bypassed, and a message box whose text is altered.
+
 ### Loader Project
 
 #### ``class Loader``
@@ -90,8 +94,4 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
     - First, new memory is allocated in the remote process via ``loader.AllocateMemory()``.
     - The custom message string is then written into this new memory region.
     - Finally, the loader modifies the thread's context to redirect the pointer for the message box text. This involves changing the value in the RDX register (for x64) or updating a value on the stack at ESP+0x8 (for x86) to point to our newly allocated string.
-  - **Resume Execution**: Once all patches have been successfully applied, the target process is resumed, allowing the now-modified application to run normally.
-
-### Example Project
-
-The Example project is a simple console application designed to serve as the demonstration target for the Loader. It contains two specific features that are modified at runtime: a basic key validation check, which is bypassed, and a message box whose text is altered.
+- **Resume Execution**: Once all patches have been successfully applied, the target process is resumed, allowing the now-modified application to run normally.
