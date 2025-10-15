@@ -9,7 +9,7 @@ Keywords: Loader, in-memory-patcher, in-memory-patching, portable executable, EX
 
 ## Motivation
 
-When solving a crackme, the preferred way is to find a valid serial or to write a keygen. If that isn’t possible, patching the binary is a common fallback. Packed targets are usually unpacked first so patches can be persisted to disk. If unpacking fails, a loader can be used for in-memory patching.
+When solving a crackme, the preferred way is to find a valid serial or to write a keygen. If that isn’t possible, patching the binary is a common fallback. Packed targets are usually unpacked first so patches can be persisted to disk. If unpacking fails, a *loader* can be used for in-memory patching.
 
 ## Requirements
 
