@@ -91,3 +91,20 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
 ### Example Project
 
 The Example project is a simple console application designed to serve as the demonstration target for the Loader. It contains two specific features that are modified at runtime: a basic key validation check, which is bypassed, and a message box whose text is altered.
+
+## Appendix
+
+### Calculating required RVAs (x64)
+
+#### ImageBase / Jmp OEP
+
+![image](Images/jmp_oep_x64.png)  
+
+#### Patch For Conditional Jump  
+
+![image](Images/je_x64.png)  
+
+#### Patch For MessageBoxA  
+
+![image](Images/messageboxa_x64.png)
+
