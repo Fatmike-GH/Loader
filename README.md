@@ -1,12 +1,16 @@
-# Fatmike's Loader (in-memory-patcher)  
+# Fatmike's Loader (in-memory patcher)  
 
-A Windows executable loader (supports both x86 and x64 targets) designed for controlled in-memory patching of PE images.  
+A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, designed for controlled in-memory patching of executables (PE images).  
 
-Keywords: Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
+**Note**:  
+Not to be confused with a manual mapper like this one: https://github.com/Fatmike-GH/PELoader
+
+**Keywords**:  
+Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
 
 ## Motivation
 
-When solving a crackme, the preferred way is to find a valid serial or to write a keygen. If that isn’t possible, patching the binary is a common fallback. Packed targets are usually unpacked first so patches can be persisted to disk. If unpacking fails, a loader can be used for in-memory patching.
+When solving a crackme, the preferred way is to find a valid serial or to write a keygen. If that isn’t possible, patching the binary is a common fallback. Packed targets are usually unpacked first so patches can be persisted to disk. If unpacking fails, a *loader* can be used for in-memory patching.
 
 ## Requirements
 
@@ -37,11 +41,15 @@ Breakpoints can be placed within the target's main executable or its loaded modu
 
 The ``WriteProcessMemory`` API is used to apply patches to the target's memory at a specific Virtual Address (VA) or Relative Virtual Address (RVA). Similarly, the thread's registers are accessed and modified using ``GetThreadContext`` and ``SetThreadContext``, respectively.  
 
-## Remote Memory Allocation
+### Remote Memory Allocation
 
 Memory allocation in the target process is performed using ``VirtualAllocEx``.
 
 ## Solution Overview
+
+### Example Project
+
+The Example project is a simple console application designed to serve as the demonstration target for the Loader. It contains two specific features that are modified at runtime: a basic key validation check, which is bypassed, and a message box whose text is altered.
 
 ### Loader Project
 
@@ -58,7 +66,7 @@ The core of the solution is the ``Loader`` class, which encapsulates all functio
 - ``AllocateMemory`` Allocates a new region of memory within the virtual address space of the target process.
 - ``WriteToVa`` Writes a supplied data buffer to a specific Virtual Address (VA) in the target's memory.
 - ``WriteToRva`` Writes data to a Relative Virtual Address (RVA) within the main module of the target.
-- ``UpdateContext`` Applies a modified context structure to the main thread, allowing for direct manipulation of CPU registers.
+- ``UpdateContext`` Applies a modified context structure to the main thread, allowing direct manipulation of CPU registers.
 
 #### ``class ModuleResolver``
 
@@ -77,7 +85,7 @@ The ``BreakPoint`` class encapsulates the state and behavior of a single breakpo
 
 #### ``main``
 
-The main function serves as a practical demonstration, orchestrating the ``Loader`` class to patch the ``Example.exe`` binaries provided in the *Demo* folder. These executables are packed with *UPX* (version 5.0.1). The virtual addresses used in the code correspond directly to these specific binaries (x64 and x86). *Debug* configuration was used to build these binaries.
+The main function serves as a practical demonstration, orchestrating the ``Loader`` class to patch the ``Example.exe`` binaries provided in the *Demo* folder. The example executables are packed with *UPX* (version 5.0.1), to have a more realistic scenario. The virtual addresses used in the code correspond directly to these specific binaries (x64 and x86). *Debug* configuration was used to build these binaries.
 
 - **Bypass the UPX Packer**: Before any modifications can be made, the loader must allow the *UPX* unpacking stub to finish its work. This is accomplished by resuming the process and setting a breakpoint when jumping to the Original Entry Point (OEP) of the application. The ``loader.ResumeUntilRva()`` method is used to halt execution precisely at the moment the unpacked code is about to run.
 - **Apply In-Memory Patches**: With the application now fully unpacked in memory, the following modifications are applied:
@@ -86,25 +94,4 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
     - First, new memory is allocated in the remote process via ``loader.AllocateMemory()``.
     - The custom message string is then written into this new memory region.
     - Finally, the loader modifies the thread's context to redirect the pointer for the message box text. This involves changing the value in the RDX register (for x64) or updating a value on the stack at ESP+0x8 (for x86) to point to our newly allocated string.
-  - **Resume Execution**: Once all patches have been successfully applied, the target process is resumed, allowing the now-modified application to run normally.
-
-### Example Project
-
-The Example project is a simple console application designed to serve as the demonstration target for the Loader. It contains two specific features that are modified at runtime: a basic key validation check, which is bypassed, and a message box whose text is altered.
-
-## Appendix
-
-### Calculating required RVAs (x64)
-
-#### ImageBase / Jmp OEP
-
-![image](Images/jmp_oep_x64.png)  
-
-#### Patch For Conditional Jump  
-
-![image](Images/je_x64.png)  
-
-#### Patch For MessageBoxA  
-
-![image](Images/messageboxa_x64.png)
-
+- **Resume Execution**: Once all patches have been successfully applied, the target process is resumed, allowing the now-modified application to run normally.
