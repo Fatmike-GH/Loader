@@ -2,7 +2,7 @@
 
 A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, designed for controlled in-memory patching of executables (PE images).  
 
-Note:
+**Note**:  
 Not to be confused with a manual mapper like this one: https://github.com/Fatmike-GH/PELoader
 
 Keywords: Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
