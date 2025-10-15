@@ -95,3 +95,19 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
     - The custom message string is then written into this new memory region.
     - Finally, the loader modifies the thread's context to redirect the pointer for the message box text. This involves changing the value in the RDX register (for x64) or updating a value on the stack at ESP+0x8 (for x86) to point to our newly allocated string.
 - **Resume Execution**: Once all patches have been successfully applied, the target process is resumed, allowing the now-modified application to run normally.
+
+## Appendix
+
+### Calculating required RVAs (x64)
+
+#### ImageBase / Jmp OEP
+
+![image](Images/jmp_oep_x64.png)  
+
+#### Patch For Conditional Jump  
+
+![image](Images/je_x64.png)  
+
+#### Patch For MessageBoxA  
+
+![image](Images/messageboxa_x64.png)
