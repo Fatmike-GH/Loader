@@ -5,7 +5,8 @@ A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, desig
 **Note**:  
 Not to be confused with a manual mapper like this one: https://github.com/Fatmike-GH/PELoader
 
-Keywords: Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
+**Keywords**:  
+Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
 
 ## Motivation
 
