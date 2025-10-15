@@ -100,14 +100,28 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
 
 ### Calculating required RVAs (x64)
 
-#### ImageBase / Jmp OEP
+#### ImageBase
 
-![image](Images/jmp_oep_x64.png)  
+![image](Images/01_imagebase_x64.png)  
+
+**Image Base:** 0x00007FF7B0390000
+
+#### Jmp OEP
+
+![image](Images/02_jmp_oep_x64.png)  
+
+**JMP OEP:** 0x00007FF7B03C23CB  
+**RVA:** 0x00007FF7B03C23CB - 0x00007FF7B0390000 = 0x000323CB
 
 #### Patch For Conditional Jump  
 
-![image](Images/je_x64.png)  
+![image](Images/03_je_x64.png)  
+
+**JE:** 0x00007FF7B03A7C8C  
+**RVA:** 0x00007FF7B03A7C8C - 0x00007FF7B0390000 = 0x00017C8C
 
 #### Patch For MessageBoxA  
 
-![image](Images/messageboxa_x64.png)
+![image](Images/04_messageboxa_x64.png)
+
+**RDX:** Holds VA of message box parameter
