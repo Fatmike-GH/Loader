@@ -1,6 +1,6 @@
 # Fatmike's Loader (in-memory patcher)  
 
-A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, designed for controlled in-memory patching executables (PE images).  
+A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, designed for controlled in-memory patching of executables (PE images).  
 
 Note:
 Not to be confused with a manual mapper like this one: https://github.com/Fatmike-GH/PELoader
