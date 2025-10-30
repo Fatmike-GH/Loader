@@ -64,9 +64,11 @@ The core of the solution is the ``Loader`` class, which encapsulates all functio
 - ``ResumeUntilRva`` Functions similarly to ResumeUntilVa, but runs the target until a specified Relative Virtual Address (RVA) within the main executable module is reached.
 - ``ResumeUntilApi`` Runs the target process until a specific API function is called. Upon entry to the function, it suspends the thread and returns its context.
 - ``AllocateMemory`` Allocates a new region of memory within the virtual address space of the target process.
+- ``UpdateContext`` Applies a modified context structure to the main thread, allowing direct manipulation of CPU registers.
 - ``WriteToVa`` Writes a supplied data buffer to a specific Virtual Address (VA) in the target's memory.
 - ``WriteToRva`` Writes data to a Relative Virtual Address (RVA) within the main module of the target.
-- ``UpdateContext`` Applies a modified context structure to the main thread, allowing direct manipulation of CPU registers.
+- ``ReadFromVa`` Reads data from a specific Virtual Address (VA) in the target's memory into a supplied data buffer.
+- ``ReadFromRva`` Reads data from a Relative Virtual Address (RVA) in the target's memory into a supplied data buffer.
 
 #### ``class ModuleResolver``
 
