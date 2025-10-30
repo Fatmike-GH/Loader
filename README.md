@@ -98,7 +98,7 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
 
 ## Appendix
 
-### Calculating required RVAs for the Example (x64)
+### Calculating required RVAs for the provided example (x64)
 
 #### ImageBase
 
