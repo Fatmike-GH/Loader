@@ -64,6 +64,38 @@ CONTEXT Loader::ResumeUntilApi(const wchar_t* moduleName, LPCSTR procName)
   return ResumeUntilVa(address);
 }
 
+void Loader::ReadFromVa(LPVOID va, BYTE* data, SIZE_T size)
+{
+  ReadProcessMemory(_processInfo.hProcess, va, data, size, NULL);
+}
+
+void Loader::ReadFromRva(LPVOID rva, BYTE* data, SIZE_T size)
+{
+  LPVOID va = RvaToVa(rva);
+  ReadFromVa(va, data, size);
+}
+
+void Loader::WriteToVa(LPVOID va, BYTE* data, SIZE_T size)
+{
+  WriteProcessMemory(_processInfo.hProcess, va, data, size, NULL);
+}
+
+void Loader::WriteToRva(LPVOID rva, BYTE* data, SIZE_T size)
+{
+  LPVOID va = RvaToVa(rva);
+  WriteToVa(va, data, size);
+}
+
+void Loader::UpdateContext(CONTEXT& context)
+{
+  SetThreadContext(_processInfo.hThread, &context);
+}
+
+LPVOID Loader::AllocateMemory(SIZE_T size)
+{
+  return VirtualAllocEx(_processInfo.hProcess, nullptr, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+}
+
 CONTEXT Loader::Wait(BreakPoint& breakpoint)
 {
   CONTEXT context = { 0 };
@@ -84,27 +116,6 @@ CONTEXT Loader::Wait(BreakPoint& breakpoint)
 #endif
     Sleep(200);
   }
-}
-
-LPVOID Loader::AllocateMemory(SIZE_T size)
-{
-  return VirtualAllocEx(_processInfo.hProcess, nullptr, size, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-}
-
-void Loader::WriteToVa(LPVOID va, BYTE* data, SIZE_T size)
-{
-  WriteProcessMemory(_processInfo.hProcess, va, data, size, NULL);
-}
-
-void Loader::WriteToRva(LPVOID rva, BYTE* data, SIZE_T size)
-{
-  LPVOID va = RvaToVa(rva);
-  WriteToVa(va, data, size);
-}
-
-void Loader::UpdateContext(CONTEXT& context)
-{
-  SetThreadContext(_processInfo.hThread, &context);
 }
 
 LPVOID Loader::GetImageBaseFromSuspendedProcess()
