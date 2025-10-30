@@ -6,7 +6,7 @@ A Windows executable 'loader' (in-memory patcher) for x86 and x64 targets, desig
 Not to be confused with a manual mapper like this one: https://github.com/Fatmike-GH/PELoader
 
 **Keywords**:  
-Loader, in-memory-patcher, in-memory-patching, portable executable, EXE, Windows
+Loader, in-memory patcher, in-memory patching, portable executable, EXE, Windows
 
 ## Motivation
 
@@ -98,7 +98,7 @@ The main function serves as a practical demonstration, orchestrating the ``Loade
 
 ## Appendix
 
-### Calculating required RVAs (x64)
+### Calculating required RVAs for the provided example (x64)
 
 #### ImageBase
 
