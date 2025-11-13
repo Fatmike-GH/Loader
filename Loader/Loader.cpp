@@ -116,6 +116,7 @@ CONTEXT Loader::Wait(BreakPoint& breakpoint)
 #endif
     Sleep(200);
   }
+  return context;
 }
 
 LPVOID Loader::GetImageBaseFromSuspendedProcess()
@@ -157,6 +158,6 @@ LPVOID Loader::GetEntryPointFromHeader()
     return nullptr;
   }
 
-  DWORD entryPointRva = ntHeaders.OptionalHeader.AddressOfEntryPoint;
+  DWORD_PTR entryPointRva = ntHeaders.OptionalHeader.AddressOfEntryPoint;
   return RvaToVa((LPVOID)entryPointRva);
 }
