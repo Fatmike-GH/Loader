@@ -19,6 +19,7 @@ void BreakPoint::Enable()
 
   ReadProcessMemory(_process, _va, _originalCode, sizeof(_originalCode), NULL);
   WriteProcessMemory(_process, _va, &_breakpointCode, sizeof(_breakpointCode), NULL);
+  FlushInstructionCache(_process, _va, sizeof(_breakpointCode));
 
   _enabled = true;
 }
@@ -28,6 +29,7 @@ void BreakPoint::Disable()
   if (!_enabled) return;
 
   WriteProcessMemory(_process, _va, &_originalCode, sizeof(_originalCode), NULL);
+  FlushInstructionCache(_process, _va, sizeof(_originalCode));
 
   _enabled = false;
 }
